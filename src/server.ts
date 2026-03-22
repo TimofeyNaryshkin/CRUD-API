@@ -12,6 +12,10 @@ const fastify = Fastify();
 fastify.setValidatorCompiler(validatorCompiler);
 fastify.setSerializerCompiler(serializerCompiler);
 
+fastify.setNotFoundHandler((request, reply) => {
+  reply.code(404).send({ message: `Route ${request.url} not found` });
+});
+
 fastify.register(productsRoute);
 
 fastify.listen({ port }, function (err, address) {
