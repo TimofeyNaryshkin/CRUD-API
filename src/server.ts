@@ -1,4 +1,4 @@
-import Fastify from "fastify";
+import Fastify, { FastifyError } from "fastify";
 import productsRoute from "./routes/products";
 import {
   serializerCompiler,
@@ -14,6 +14,14 @@ fastify.setSerializerCompiler(serializerCompiler);
 
 fastify.setNotFoundHandler((request, reply) => {
   reply.code(404).send({ message: `Route ${request.url} not found` });
+});
+
+fastify.setErrorHandler(function (error: FastifyError, request, reply) {
+  if (error.validation) {
+    return reply.status(400).send({ message: error.message });
+  }
+  this.log.error(error);
+  return reply.status(500).send({ message: "Internal Server Error" });
 });
 
 fastify.register(productsRoute);
