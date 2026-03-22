@@ -20,7 +20,7 @@ const plugin: FastifyPluginAsyncZod = async function (fastify, _opts) {
     url: "/api/products",
     schema: {
       response: {
-        200: ProductSchema.array(),
+        200: ResponseProductSchema.array(),
       },
     },
     handler: (_req, res) => {
@@ -58,7 +58,7 @@ const plugin: FastifyPluginAsyncZod = async function (fastify, _opts) {
       },
     },
     handler: (req, res) => {
-      res.send(createProduct(req.body));
+      res.code(201).send(createProduct(req.body));
     },
   });
 
