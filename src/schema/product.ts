@@ -9,9 +9,13 @@ export const ProductSchema = z.object({
 });
 
 export const ResponseProductSchema = ProductSchema.extend({
-  id: z.uuid()
-})
+  id: z.uuid(),
+});
 
 export const NotFoundSchema = z.object({
-  message: z.string()
-})
+  message: z.string(),
+});
+
+export const ProductIdSchema = z.object({
+  productId: z.uuid(),
+});
