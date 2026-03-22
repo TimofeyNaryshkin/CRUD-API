@@ -1,9 +1,10 @@
 import Fastify from "fastify";
 import productsRoute from './routes/products'
+import { serializerCompiler, validatorCompiler } from "fastify-type-provider-zod";
 
-const fastify = Fastify({
-  logger: true,
-});
+const fastify = Fastify();
+fastify.setValidatorCompiler(validatorCompiler);
+fastify.setSerializerCompiler(serializerCompiler);
 
 fastify.register(productsRoute);
 

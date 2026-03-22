@@ -1,3 +1,4 @@
+import { v4 as uuidv4 } from 'uuid';
 import { Product } from "../models/product";
 import { db } from "./db";
 
@@ -10,8 +11,9 @@ export function getProduct(id: string) {
 }
 
 export function createProduct(product: Product) {
-  db.push(product);
-  return product;
+  const dbProduct = {...product, id: uuidv4()}
+  db.push(dbProduct);
+  return dbProduct;
 }
 
 export function updateProduct(id: string, product: Product) {
